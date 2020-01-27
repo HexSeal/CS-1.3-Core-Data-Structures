@@ -18,11 +18,11 @@ def decode(digits, base):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     decoded = 0
+    strings = string.digits + string.ascii_lowercase
     digits = digits[::-1]
     for i, num in enumerate(digits):
-        if int(num) > 0:
-            decoded += base**i
-            
+        decoded += base**i * strings.index(num)
+
     return decoded
 
 
@@ -37,7 +37,7 @@ def encode(number, base):
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
     encoded = ''
-    strings = string.digits + string.ascii_uppercase
+    strings = string.digits + string.ascii_lowercase
     n = 0
     if number == 0: #Edge case
         return '0'
@@ -46,13 +46,13 @@ def encode(number, base):
         n += 1
 
     while n > 0:
-        div, remainder = divmod(number, (base**(n-1)))
+        div = int(number/(base**(n-1)))
+        convert = min(div, (base-1))
         encoded += strings[convert]
         number -= convert * base**(n-1)
         n -= 1
 
     return encoded
-
 
 def convert(digits, base1, base2):
     """Convert given digits in base1 to digits in base2.
