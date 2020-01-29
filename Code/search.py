@@ -15,14 +15,14 @@ def linear_search_iterative(array, item):
             return index  # found
     return None  # not found
 
-
 def linear_search_recursive(array, item, index=0):
+    # Weird edge case where nothing was found
     if index >= len(array):
         return None
-    
+    # Found dart
     if item == array[index]:
         return index
-    
+    # Otherwise, loop again
     else:
         return linear_search_recursive(array, item, index + 1)
 
@@ -35,29 +35,21 @@ def binary_search(array, item):
 
 
 def binary_search_iterative(array, item):
-    half_array = int(len(array)/2)
-    # Start at the beginning of the step
-    start = array[half_array]
-    
-    # How to loop this?
-    for _ in range(half_array):
-        # if it's smaller than the target, cut the array search in half choose the top one
-        if array.index(start) < array.index(item):
-            start = array[start:]
-        # if it's bigger go down
-        if array.index(start) > array.index(item):
-            start = array[:start]
+    min = 0
+    max = len(array) - 1
+    dart = (max + min) // 2
+    while max >= min:
+        dart = (max + min) // 2
+        if item > array[dart]:
+            min = dart + 1
+        elif item < array[dart]:
+            max = dart - 1
         else:
-            return item
+            return dart
+    
+    return None
 
 def binary_search_recursive(array, item, left=None, right=None):
-    halfway = len(array)/2
-    # this total determines how many times the array was split
-    total = left + right
-    array_slice = len(array)/(total+1)
-    
-    
-    if array.index(halfway) < array.index(item):
-        
+    pass
     # once implemented, change binary_search to call binary_search_recursive
     # to verify that your recursive implementation passes all tests
