@@ -18,11 +18,22 @@ def is_palindrome(text):
 
 
 def is_palindrome_iterative(text):
-    # TODO: implement the is_palindrome function iteratively here
-    pass
-    # once implemented, change is_palindrome to call is_palindrome_iterative
-    # to verify that your iterative implementation passes all tests
-
+    clean = " ?!,.;:-_'"
+    for char in clean:
+        text = text.replace(char, "")
+        
+    start = 0
+    end = len(text) - 1
+    
+    if len(text) < 1:
+        return True
+    
+    while start <= end:
+        if text[start].lower() != text[end].lower():
+            return False
+        start += 1
+        end -= 1
+    return True
 
 def is_palindrome_recursive(text, left=None, right=None):
     # TODO: implement the is_palindrome function recursively here
