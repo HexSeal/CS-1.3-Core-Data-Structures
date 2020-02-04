@@ -4,23 +4,64 @@ def contains(text, pattern):
     """Return a boolean indicating whether pattern occurs in text."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement contains here (iteratively and/or recursively)
+
+    if len(text) == 0:
+        return True
+    for i in range(0, (len(text) - len(pattern) + 1)):
+        if text[i:(i+len(pattern))] == pattern:
+            return True
+    return False
 
 
-def find_index(text, pattern):
+def find_index_old(text, pattern):
     """Return the starting index of the first occurrence of pattern in text,
     or None if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement find_index here (iteratively and/or recursively)
+    
+    if len(text) == 0:
+        return 0
+    for i in range(0, (len(text) - len(pattern) + 1)):
+        if text[i:(i+len(pattern))] == pattern:
+            return i
+    return None
 
+def find_index(text, pattern):
+    """A more time efficient version of find_index. It's still O(n), because the second loop picks up where the last left off because we don't 
+    need to recheck those characters"""
+    assert isinstance(text, str), 'text is not a string: {}'.format(text)
+    assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
+
+    i = 0
+    if len(text) == 0:
+        return 0
+    while i < (len(text) - len(pattern) + 1):
+        if text[i] == pattern[0]:
+            possible_match = i
+            
+            for j in pattern:
+                if j == len(pattern):
+                    return possible_match
+                if text[i + j] == pattern[j]:
+                    pass
+                else:
+                    break
+        i += 1
+    return None
+        
 
 def find_all_indexes(text, pattern):
     """Return a list of starting indexes of all occurrences of pattern in text,
     or an empty list if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement find_all_indexes here (iteratively and/or recursively)
+    indices = []
+    
+    for i in range(0, (len(text) - len(pattern) + 1)):
+        if len(indices) <= len(text) - 1:
+            if text[i:(i+len(pattern))] == pattern :
+                indices.append(i)
+    return indices
 
 
 def test_string_algorithms(text, pattern):
