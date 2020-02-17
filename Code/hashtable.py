@@ -25,7 +25,7 @@ class HashTable(object):
 
     def load_factor(self):
         """Return the load factor, the ratio of number of entries to buckets.
-        Best and worst case running time: O(n+b) because we have to iterate through for ever bucket, and the size attribute requires iteration"""
+        Best and worst case running time: O(n/b) because we have to iterate through for every bucket, and find the average number of entries per bucket"""
         num_of_buckets = 0
         for bucket in self.buckets:
             num_of_buckets += 1
