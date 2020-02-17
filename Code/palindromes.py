@@ -27,35 +27,39 @@ def is_palindrome_iterative(text):
     # Time Complexity: O(n) because we use a loop to iterate
     clean_text(text)
 
-    start = 0
-    end = len(text) - 1
+    left = 0
+    right = len(text) - 1
     
     if len(text) < 1:
         return True
-    
-    while start <= end:
-        if text[start].lower() != text[end].lower():
+
+    while left <= right:
+        if text[left].lower() != text[right].lower():
             return False
-        start += 1
-        end -= 1
+        left += 1
+        right -= 1
     return True
 
 
 def is_palindrome_recursive(text, left=None, right=None):
-    # Time Complexity: O(n)
-    if left == None:
+    """Recursively checks if the text is a palindrome by starting at both end indexes."""
+    if text == "":
+        return True
+    if left is None:
         left = 0
         right = len(text) - 1
 
-    clean_text(text)
-    
-    if len(text) < 1:
+    while not text[left].isalnum():
+        left += 1
+    while not text[right].isalnum():
+        right -= 1
+
+    if text[left].lower() != text[right].lower():
+        return False
+    elif left >= right:
         return True
-    if left <= right and right <= len(text) - 1:
-        if text[left].lower() != text[right].lower():
-            return False
-        is_palindrome_recursive(text, left+1, right-1)
-    return True
+    else:
+        return is_palindrome_recursive(text, left + 1, right - 1)
 
 
 def main():
