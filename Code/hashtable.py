@@ -86,7 +86,7 @@ class HashTable(object):
     def get(self, key):
         """Return the value associated with the given key, or raise KeyError.
         Best case running time: O(1) because the target could be the first entry in the bucket, which takes O(1) to find because of hashing
-        Worst case running time: O(n), same as contains()"""
+        Worst case running time: O(n/b), same as contains()"""
         # Find the bucket the given key belongs in
         index = self._bucket_index(key)
         bucket = self.buckets[index]
@@ -121,7 +121,7 @@ class HashTable(object):
         
         # If the loadfactor exceeds 0.75, then resize for efficiency
         if self.load_factor() > 0.75:
-            self._resize
+            self._resize()
 
     def delete(self, key):
         """Delete the given key and its associated value, or raise KeyError.
