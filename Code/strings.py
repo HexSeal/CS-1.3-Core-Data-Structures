@@ -5,12 +5,16 @@ def contains(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
 
-    if len(text) == 0:
+    if find_index(text, pattern) != None:
         return True
-    for i in range(0, (len(text) - len(pattern) + 1)):
-        if text[i:(i+len(pattern))] == pattern:
-            return True
     return False
+    
+    # if len(text) == 0:
+    #     return True
+    # for i in range(0, (len(text) - len(pattern) + 1)):
+    #     if text[i:(i+len(pattern))] == pattern:
+    #         return True
+    # return False
 
 
 def find_index_old(text, pattern):
