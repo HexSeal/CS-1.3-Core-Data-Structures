@@ -36,7 +36,7 @@ class LinkedStack(object):
         """Return the item on the top of this stack without removing it,
         or None if this stack is empty."""
         if not self.is_empty():
-            return self.list.tail.data
+            return self.list.head.data
         return None
         
     def pop(self):
@@ -46,7 +46,7 @@ class LinkedStack(object):
         if self.is_empty():
             raise ValueError("Stack is empty")
         
-        top = self.list.tail.data
+        top = self.list.head.data
         self.list.delete(top)
         return top
 
