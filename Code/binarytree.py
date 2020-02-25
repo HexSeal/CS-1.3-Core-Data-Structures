@@ -71,15 +71,15 @@ class BinarySearchTree(object):
     def height(self):
         """Return the height of this tree (the number of edges on the longest
         downward path from this tree's root node to a descendant leaf node).
-        TODO: Best and worst case running time: ??? under what conditions?"""
+        TODO: Best and worst case running time: O(h)"""
         if self.root.data != None:
             return self.root.height()
         return None
 
     def contains(self, item):
         """Return True if this binary search tree contains the given item.
-        TODO: Best case running time: ??? under what conditions?
-        TODO: Worst case running time: ??? under what conditions?"""
+        TODO: Best case running time: O(1), because the item could be the root of the tree.
+        TODO: Worst case running time: O(n), the node could be a leaf"""
         # Find a node with the given item, if any
         node = self._find_node_recursive(item, self.root)
         # Return True if a node was found, or False
@@ -88,8 +88,8 @@ class BinarySearchTree(object):
     def search(self, item):
         """Return an item in this binary search tree matching the given item,
         or None if the given item is not found.
-        TODO: Best case running time: ??? under what conditions?
-        TODO: Worst case running time: ??? under what conditions?"""
+        TODO: Best case running time: O(1)
+        TODO: Worst case running time: O(n)"""
         # Find a node with the given item, if any
         node = self._find_node_recursive(item, self.root)
         
@@ -331,6 +331,7 @@ class BinarySearchTree(object):
         Memory usage: O(h), where h is the height of the tree. The time it takes to get from root to leaf depends on how tall the tree is."""
         # Visit this node's data with given function
         if node is not None:
+            visit(node.data)
         # Traverse left subtree, if it exists
             self._traverse_pre_order_recursive(node.left, visit)
         # Traverse right subtree, if it exists
