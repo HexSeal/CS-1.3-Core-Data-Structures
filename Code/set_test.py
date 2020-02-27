@@ -35,8 +35,7 @@ class TreeTest(unittest.TestCase):
         assert set.size is 4
         assert set.contains('L') is True
         
-        with self.assertRaises(KeyError):
-            set.contains('S') # Doesn't exist
+        assert set.contains('S') is False
             
     def test_remove(self):
         elements = ['I', 'D', 'W', 'T']
