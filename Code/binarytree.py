@@ -71,15 +71,15 @@ class BinarySearchTree(object):
     def height(self):
         """Return the height of this tree (the number of edges on the longest
         downward path from this tree's root node to a descendant leaf node).
-        TODO: Best and worst case running time: O(h)"""
+        Best and worst case running time: O(h), we only have to traverse one path to get to the bottom and find the height"""
         if self.root.data != None:
             return self.root.height()
         return None
 
     def contains(self, item):
         """Return True if this binary search tree contains the given item.
-        TODO: Best case running time: O(1), because the item could be the root of the tree.
-        TODO: Worst case running time: O(n), the node could be a leaf"""
+        Best case running time: O(1), because the item could be the root of the tree.
+        Worst case running time: O(n), the node could be a leaf"""
         # Find a node with the given item, if any
         node = self._find_node_recursive(item, self.root)
         # Return True if a node was found, or False
@@ -88,8 +88,8 @@ class BinarySearchTree(object):
     def search(self, item):
         """Return an item in this binary search tree matching the given item,
         or None if the given item is not found.
-        TODO: Best case running time: O(1)
-        TODO: Worst case running time: O(n)"""
+        Best case running time: O(1) if we find it immediately
+        Worst case running time: O(n) if we have to traverse through all the nodes to find the item"""
         # Find a node with the given item, if any
         node = self._find_node_recursive(item, self.root)
         
@@ -99,8 +99,8 @@ class BinarySearchTree(object):
 
     def insert(self, item):
         """Insert the given item in order into this binary search tree.
-        TODO: Best case running time: ??? under what conditions?
-        TODO: Worst case running time: ??? under what conditions?"""
+        Best case running time: O(1) if the tree is empty and we just have to create a new node?
+        Worst case running time: O(log n) because at worst we have to traverse through nodes with binary search"""
         # Handle the case where the tree is empty
         if self.is_empty():
             self.root = BinaryTreeNode(item)
@@ -123,8 +123,8 @@ class BinarySearchTree(object):
         """Return the node containing the given item in this binary search tree,
         or None if the given item is not found. Search is performed iteratively
         starting from the root node.
-        TODO: Best case running time: ??? under what conditions?
-        TODO: Worst case running time: ??? under what conditions?"""
+        Best case running time: O(1) because the item could be the root node
+        Worst case running time: O(log n) because at worst the item is the last """
         # Start with the root node
         node = self.root
         # Loop until we descend past the closest leaf node
@@ -145,8 +145,8 @@ class BinarySearchTree(object):
         """Return the node containing the given item in this binary search tree,
         or None if the given item is not found. Search is performed recursively
         starting from the given node (give the root node to start recursion).
-        TODO: Best case running time: ??? under what conditions?
-        TODO: Worst case running time: ??? under what conditions?"""
+        Best case running time: O(1) because the item could be the root node
+        Worst case running time: O(log n) because at worst the item is the last """
         # Check if starting node exists
         if node is None:
             # Not found (base case)
@@ -168,9 +168,8 @@ class BinarySearchTree(object):
         """Return the parent node of the node containing the given item
         (or the parent node of where the given item would be if inserted)
         in this tree, or None if this tree is empty or has only a root node.
-        Search is performed iteratively starting from the root node.
-        TODO: Best case running time: ??? under what conditions?
-        TODO: Worst case running time: ??? under what conditions?"""
+        Best case running time: O(1) because the item could be the root node
+        Worst case running time: O(log n) because at worst the item is the last """
         # Start with the root node and keep track of its parent
         node = self.root
         parent = None
@@ -222,8 +221,8 @@ class BinarySearchTree(object):
 
     def delete(self, item):
         """Remove given item from this tree, if present, or raise ValueError.
-        TODO: Best case running time: ??? under what conditions?
-        TODO: Worst case running time: ??? under what conditions?"""
+        Best case running time: O(h) if we find the node on the first branch with no children
+        Worst case running time: O(n) if we have to traverse everything to find the node, and more if the node had two children"""
         # Use helper methods and break this algorithm down into 3 cases
         # based on how many children the node containing the given item has and
         # implement new helper methods for subtasks of the more complex cases
@@ -246,13 +245,14 @@ class BinarySearchTree(object):
                 new_node.right = node.right
             self.root = new_node
 
-        ### no children
+        # No children
         elif (node.left == None) and (node.right == None):
             if parent.left == node:
                 parent.left = None
             else:
                 parent.right = None
-        ### 1 child
+        ### 1 child:
+        # Left child
         elif(node.left != None) and (node.right == None):
             # another node on the left
             if node.data < parent.data:
@@ -261,6 +261,7 @@ class BinarySearchTree(object):
             else:
                 #node is on the right
                 parent.right = node.left
+        # Right child
         elif(node.left == None) and (node.right != None):
             # another node on the right
             if node.data < parent.data:
@@ -269,7 +270,7 @@ class BinarySearchTree(object):
             else:
                 #node is on the right
                 parent.right = node.right
-        ### 2 child
+        # 2 children
         else:
             new_node = BinaryTreeNode(self.find_inorder_successor(node).data)
             self.delete(new_node.data)
@@ -390,8 +391,8 @@ class BinarySearchTree(object):
     def _traverse_level_order_iterative(self, start_node, visit):
         """Traverse this binary tree with iterative level-order traversal (BFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
+        Running time: O(n), for each node
+        Memory usage: O(b) because we have to traverse the bredth/width of the tree on each layer before we can go on to the next"""
         # Create queue to store nodes not yet traversed in level-order
         queue = LinkedQueue()
         # Enqueue given starting node
