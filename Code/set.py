@@ -58,7 +58,7 @@ class TreeSet(object):
     
     def intersection(self, other_set): 
         """return a new set that is the intersection of this set and other_set
-        Best case: """
+        Best case/worst case: O(log n) due to binary search"""
         new_set = TreeSet()
         for element in self.tree.items_in_order():
             if other_set.contains(element):
@@ -66,7 +66,8 @@ class TreeSet(object):
         return new_set
     
     def difference(self, other_set): 
-        """return a new set that is the difference of this set and other_set"""
+        """return a new set that is the difference of this set and other_set
+        Best/Worst case: O(n) because we require checking all nodes"""
         new_set = TreeSet()
         for element in self.tree.items_in_order():
             new_set.add(element)
@@ -76,7 +77,8 @@ class TreeSet(object):
                 new_set.remove(element)
 
     def is_subset(self, other_set): 
-        """return a boolean indicating whether other_set is a subset of this set"""
+        """return a boolean indicating whether other_set is a subset of this set
+        Best/Worst case: O(n)"""
         currentElement = 0
         for element in other_set.tree.items_in_order():
             if self.contains(element):
