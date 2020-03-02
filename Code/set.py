@@ -4,16 +4,15 @@ class TreeSet(object):
     """Initialize a new empty set structure, and add each element if a sequence is given"""
     def __init__(self, elements=None):
         self.tree = BinarySearchTree()
-        self.size = 0
         self.element = BinaryTreeNode
-        
         if elements is not None:
             for element in elements:
                 self.add(element)
-        
+    
+    @property    
     def size(self):
         """Property that tracks the number of elements in constant time"""
-        return self.size
+        return self.tree.size
         
     def contains(self, element):
         """return a boolean indicating whether element is in this set
@@ -27,7 +26,6 @@ class TreeSet(object):
             raise KeyError(f'{element} is already in tree.')
         else:
             self.tree.insert(element)
-            self.size += 1
     
     def remove(self, element): 
         """remove element from this set, if present, or else raise KeyError
@@ -39,18 +37,17 @@ class TreeSet(object):
             raise KeyError(f'No such element exists: {element}')
         else:
             self.tree.delete(element)
-            self.size -= 1
     
     def union(self, other_set): 
         """return a new set that is the union of this set and other_set
         Best and worst case: O(n) becaues we must traverse through all nodes"""
         
         new_set = TreeSet()
-        for element in self.tree.items_in_order():
+        for element in self.tree.items_pre_order():
             new_set.add(element)
         
         # Adds remaining other_set elements
-        for element in other_set.tree.items_in_order():
+        for element in other_set.tree.items_pre_order():
             if not new_set.contains(element):
                 new_set.add(element)
             
@@ -75,12 +72,16 @@ class TreeSet(object):
         for element in other_set.tree.items_in_order():
             if new_set.contains(element):
                 new_set.remove(element)
+        return new_set
 
     def is_subset(self, other_set): 
         """return a boolean indicating whether other_set is a subset of this set
         Best/Worst case: O(n)"""
-        currentElement = 0
+        if self.size > other_set.size:
+            return False
+        
         for element in other_set.tree.items_in_order():
-            if self.contains(element):
-                currentElement += 1
-        return self.size == currentElement
+            if not self.contains(element):
+                return False
+                
+        return True

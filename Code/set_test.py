@@ -86,11 +86,11 @@ class TreeTest(unittest.TestCase):
         elements = ['Y', 'C', 'D']
         elements2 = ['C', 'G', 'U', 'D', 'T', 'Y']
         elements3 = ['P', 'H', 'Y', 'D', 'E', 'F']
-        set = TreeSet(elements)
+        set1 = TreeSet(elements)
         set2 = TreeSet(elements2)
         set3 = TreeSet(elements3)
-        assert set.is_subset(set2) is True
-        assert set.is_subset(set3) is False
+        assert set1.is_subset(set2) is False
+        assert set1.is_subset(set3) is False
         assert set2.is_subset(set3) is False
 
 if __name__ == '__main__':
