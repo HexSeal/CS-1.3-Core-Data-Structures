@@ -302,7 +302,7 @@ class BinarySearchTree(object):
         Running time: O(n), where n is the number of entries. This is assuming the tree is optimized to be balanced.
         Memory usage: O(h), where h is the height of the tree. The time it takes to get from root to leaf depends on how tall the tree is."""
         # Traverse left subtree, if it exists
-        if node is not None:
+        if node:
             self._traverse_in_order_recursive(node.left, visit)
         # Visit this node's data with given function
             visit(node.data)
