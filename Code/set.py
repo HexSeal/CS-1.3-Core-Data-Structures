@@ -40,16 +40,17 @@ class TreeSet(object):
     
     def union(self, other_set): 
         """return a new set that is the union of this set and other_set
-        Best and worst case: O(n) becaues we must traverse through all nodes"""
-        
+        Best and worst case: (m + n) * log m because we add the length of each set to the time of the .add calls"""
+        # m log m + n*2logm = (m + 2n) * log m =
+        # (m + n) * log m
         new_set = TreeSet()
-        for element in self.tree.items_pre_order():
-            new_set.add(element)
+        for element in self.tree.items_pre_order(): # O(h(self))
+            new_set.add(element) # + O(m)
         
         # Adds remaining other_set elements
         for element in other_set.tree.items_pre_order():
-            if not new_set.contains(element):
-                new_set.add(element)
+            if not new_set.contains(element): # O(log m)
+                new_set.add(element) # +O(log m)
             
         return new_set
     
@@ -76,7 +77,8 @@ class TreeSet(object):
 
     def is_subset(self, other_set): 
         """return a boolean indicating whether other_set is a subset of this set
-        Best/Worst case: O(n)"""
+        Best case:e O(1), incase the size is bigger than other_set and we don't need to do anything.
+        Worst case: O(n), if we must traverse through all nodes"""
         if self.size > other_set.size:
             return False
         
