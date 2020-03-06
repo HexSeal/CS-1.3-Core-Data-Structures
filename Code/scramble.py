@@ -2,6 +2,7 @@
 # Only include words that have a first letter that's present in the scramble
 # Double letter check
 # Binary Search the tree created
+# No longer using as adding to the tree and sorting is too hard
 
 from binarytree import BinarySearchTree
 import os

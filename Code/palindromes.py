@@ -42,7 +42,9 @@ def is_palindrome_iterative(text):
 
 
 def is_palindrome_recursive(text, left=None, right=None):
-    """Recursively checks if the text is a palindrome by starting at both end indexes."""
+    """Recursively checks if the text is a palindrome by starting at both end indexes.
+    Best: O(n/2 + 1) because that's the quickest we can determine it's not a palindrome, after the first half
+    Worst: O(n) If we go through all the letters and it's correct """
     if text == "":
         return True
     if left is None:
